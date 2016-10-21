@@ -1,0 +1,107 @@
+// Partial
+.defaultFont {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+// Layout
+*:focus { outline: 0; }
+input {
+    @extend .defaultFont;
+}
+body {
+    margin: 0;
+    overflow: hidden;
+    @extend .defaultFont;
+}
+.row, .column {
+    overflow: hidden;
+    position: absolute;
+}
+.row {
+    left: 0;
+    right: 0;
+}
+.column {
+    top: 0;
+    bottom: 0;
+}
+.scrollX, .scrollY {
+    -webkit-overflow-scrolling: touch;
+}
+.scrollX {
+    overflow-x: auto;
+}
+.scrollY {
+    overflow-y: auto;
+}
+
+// UI
+.credits {
+    position: fixed;
+    bottom: 10px;
+    right: 30px;
+    font-weight: 800;
+    color: rgba(white, 0.3);
+    font-size: 2em;
+}
+.credits:before {
+    content: "GIPHY";
+}
+
+.header {
+    height: 50px;
+    top: 0;
+    background-color: #3a3a3a;
+}
+
+.body {
+    top: 50px;
+    bottom: 0;
+    background-color: #202020;
+}
+
+.imagesFrame {
+    width: 1100px;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #101010;
+}
+
+.imageRect {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    overflow: hidden;
+    text-align: center;
+    float: left;
+    background-color: #111;
+
+    img {
+        left: 50%;
+        margin-left: -100%;
+        position: relative;
+        width: auto !important;
+    }
+}
+
+.statusMsg {
+    text-align: center;
+    color: #eee;
+    font-size: 4em;
+    margin-top: 100px;
+    font-weight: 100;
+}
+
+.searchInput {
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    border: none;
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    font-size: 1.5em;
+}

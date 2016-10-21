@@ -1,0 +1,3 @@
+export const RECEIVE_GIFS = 'RECEIVE_GIFS'
+export const REQUEST_GIFS = 'REQUEST_GIFS'
+export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT'
