@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
 
 const Body = ({
+    count,
     gifs,
-    isFetching
+    isFetching,
+    offset,
+    searchGiphy
 }) => (
     <div className='body row scrollY'>
         {
@@ -18,6 +21,15 @@ const Body = ({
                             )
                         }
                         <div style={{ clear: 'both' }} />
+                        {
+                            offset < count ?
+                                <button
+                                    onClick={searchGiphy}
+                                >
+                                    Load More
+                                </button>
+                                : null
+                        }
                     </div> :
                     <div className='statusMsg'>No results</div>
         }
@@ -25,8 +37,11 @@ const Body = ({
 )
 
 Body.propTypes = {
+    count: PropTypes.number.isRequired,
     gifs: PropTypes.array.isRequired,
-    isFetching: PropTypes.bool.isRequired
+    isFetching: PropTypes.bool.isRequired,
+    offset: PropTypes.number.isRequired,
+    searchGiphy: PropTypes.func.isRequired
 }
 
 export default Body

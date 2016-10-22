@@ -20,15 +20,26 @@ class App extends Component {
     render () {
 
         const {
+            count,
             dispatch,
             gifs,
             isFetching,
+            offset,
+            query,
             searchInput
         } = this.props
 
         return (
             <div>
-                <Body gifs={gifs} isFetching={isFetching} />
+                <Body
+                    count={count}
+                    gifs={gifs}
+                    isFetching={isFetching}
+                    offset={offset}
+                    searchGiphy={() =>
+                        dispatch(fetchGifs(query, offset + 100))
+                    }
+                />
                 <Header
                     searchGiphy={searchInput =>
                         dispatch(fetchGifs(searchInput))
@@ -48,16 +59,22 @@ const mapStateToProps = state => {
 
     const { giphy } = state
     const {
+        count,
         defaultSearch,
         gifs,
         isFetching,
+        offset,
+        query,
         searchInput
     } = giphy
 
     return {
+        count,
         defaultSearch,
         gifs,
         isFetching,
+        offset,
+        query,
         searchInput
     }
 }
