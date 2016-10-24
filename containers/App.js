@@ -50,7 +50,9 @@ class App extends Component {
                         dispatch(setSearchInput(searchInput))
                     }
                 />
-                <div className="credits" />
+                <img
+                    className="credits"
+                    src="./images/Poweredby_100px-Black_VertText.png" />
             </div>
         )
     }
