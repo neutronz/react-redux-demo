@@ -1,4 +1,4 @@
-# react-redux-demo
+# React/Redux Demo
 
 A simple SPA illustrating how to dispatch synchronus and asynchronus actions with React/Redux utilizing the [**Giphy API**](https://github.com/Giphy/GiphyAPI)
 
