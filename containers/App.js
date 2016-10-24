@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { fetchGifs, setSearchInput } from '../actions'
+import { RESULT_LIMIT } from '../constants'
 
 class App extends Component {
 
@@ -37,7 +38,7 @@ class App extends Component {
                     isFetching={isFetching}
                     offset={offset}
                     searchGiphy={() =>
-                        dispatch(fetchGifs(query, offset + 100))
+                        dispatch(fetchGifs(query, offset + RESULT_LIMIT))
                     }
                 />
                 <Header

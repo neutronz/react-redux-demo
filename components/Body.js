@@ -9,29 +9,35 @@ const Body = ({
 }) => (
     <div className='body row scrollY'>
         {
-            isFetching === true ?
-                <div className='statusMsg'>Loading ..</div> :
-                gifs.length > 0 ?
-                    <div className='imagesFrame'>
-                        {
-                            gifs.map((gif, i) =>
-                                <div className="imageRect" key={i}>
-                                    <img src={gif.images.fixed_height.url} />
-                                </div>
-                            )
-                        }
-                        <div style={{ clear: 'both' }} />
-                        {
-                            offset < count ?
-                                <button
-                                    onClick={searchGiphy}
-                                >
-                                    Load More
-                                </button>
-                                : null
-                        }
-                    </div> :
+            gifs.length > 0 ?
+                <div className='imagesFrame'>
+                    {
+                        gifs.map((gif, i) =>
+                            <div className='imageRect' key={i}>
+                                <img src={gif.images.fixed_height.url} />
+                            </div>
+                        )
+                    }
+                    <div style={{ clear: 'both' }} />
+                    {
+                        offset < count ?
+                            <button
+                                className='loadMore'
+                                onClick={searchGiphy}
+                            >
+                                Load More
+                            </button>
+                            : null
+                    }
+                </div> :
+                isFetching === false ?
                     <div className='statusMsg'>No results</div>
+                    : null
+        }
+        {
+            isFetching === true
+                ? <div className='statusMsg'>Loading ..</div>
+                : null
         }
     </div>
 )

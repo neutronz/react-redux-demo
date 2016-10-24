@@ -27,9 +27,9 @@ export default function giphy(state = initialState, action) {
             offset
         })
 
-    case types.REQUEST_GIFS:
+    case types.REQUEST_GIFS: {
 
-        const { query } = action
+        const { offset = state.offset, query } = action
 
         return Object.assign({}, state, {
             gifs: offset === 0
@@ -38,6 +38,7 @@ export default function giphy(state = initialState, action) {
             isFetching: true,
             query
         })
+    }
 
     case types.SET_SEARCH_INPUT:
 
