@@ -5,9 +5,9 @@ const initialState = {
     defaultSearch: 'silicon valley',
     isFetching: false,
     gifs: [],
+    offset: 0,
+    query: '',
     searchInput: '',
-    skip: 0,
-    take: 0
 }
 
 export default function giphy(state = initialState, action) {
@@ -16,22 +16,29 @@ export default function giphy(state = initialState, action) {
 
     case types.RECEIVE_GIFS:
 
-        const { count, gifs, skip, take } =  action
+        const { count, offset, gifs } = action
 
         return Object.assign({}, state, {
             count,
-            gifs,
+            gifs: offset === 0
+                ? gifs
+                : [...state.gifs, ...gifs],
             isFetching: false,
-            skip,
-            take
+            offset
         })
 
-    case types.REQUEST_GIFS:
+    case types.REQUEST_GIFS: {
+
+        const { offset = state.offset, query } = action
 
         return Object.assign({}, state, {
-            gifs: [],
-            isFetching: true
+            gifs: offset === 0
+                ? []
+                : state.gifs,
+            isFetching: true,
+            query
         })
+    }
 
     case types.SET_SEARCH_INPUT:
 

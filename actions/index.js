@@ -1,10 +1,9 @@
 import * as types from '../constants/ActionTypes'
+import querystring from 'querystring'
+import { RESULT_LIMIT } from '../constants'
 import 'whatwg-fetch'
 
 const apiKey = 'dc6zaTOxFJmzC'
-// TODO :: MAKE DYN
-const limit = 100
-const offset = 0
 
 const receiveGifs = json => {
 
@@ -13,8 +12,7 @@ const receiveGifs = json => {
         pagination
     } = json
     const {
-        count: take = 0,
-        offset: skip = 0,
+        offset,
         total_count: count = 0
     } = pagination
 
@@ -22,13 +20,14 @@ const receiveGifs = json => {
         type: types.RECEIVE_GIFS,
         count,
         gifs,
-        skip,
-        take
+        offset
     }
 }
 
-const requestGifs = ()  => ({
-    type: types.REQUEST_GIFS
+const requestGifs = (query, offset) => ({
+    type: types.REQUEST_GIFS,
+    query,
+    offset
 })
 
 export const setSearchInput = searchInput => ({
@@ -36,13 +35,20 @@ export const setSearchInput = searchInput => ({
     searchInput
 })
 
-export function fetchGifs (searchInput) {
+export function fetchGifs (query, offset = 0) {
 
     return dispatch => {
 
-        dispatch(requestGifs())
+        dispatch(requestGifs(query, offset))
 
-        return fetch(`http://api.giphy.com/v1/gifs/search?q=${searchInput}&api_key=${apiKey}&limit=${limit}&offset=${offset}`)
+        const qs = querystring.stringify({
+            q: query,
+            api_key: apiKey,
+            limit: RESULT_LIMIT,
+            offset
+        })
+
+        return fetch(`http://api.giphy.com/v1/gifs/search?${qs}`)
             .then(res => res.json())
             .then(json => dispatch(receiveGifs(json)))
             .catch(err => console.error(err))

@@ -2,8 +2,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 
+const __DEV__  = process.env.NODE_ENV !== 'production'
+
 module.exports = {
-    devtool: 'eval-source-map',
+    devtool: __DEV__ ? 'eval-source-map' : 'cheap-source-map',
     entry: ['./index'],
     output: {
         path: path.resolve(__dirname, 'public/js'),
@@ -19,7 +21,10 @@ module.exports = {
             minimize: true,
             debug: false
         }),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            __DEV__
+        })
     ],
     module: {
         loaders: [
