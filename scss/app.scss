@@ -39,15 +39,10 @@ body {
 
 // UI
 .credits {
+    width: 100px;height: 36px;
     position: fixed;
     bottom: 10px;
     right: 30px;
-    font-weight: 800;
-    color: rgba(white, 0.3);
-    font-size: 2em;
-}
-.credits:before {
-    content: "GIPHY";
 }
 
 .header {
