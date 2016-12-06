@@ -4,8 +4,8 @@ const Body = ({
     count,
     gifs,
     isFetching,
-    offset,
-    searchGiphy
+    loadMore,
+    offset
 }) => (
     <div className='body row scrollY'>
         {
@@ -13,7 +13,7 @@ const Body = ({
                 <div className='imagesFrame'>
                     {
                         gifs.map((gif, i) =>
-                            <div className='imageRect' key={i}>
+                            <div className='gifRect' key={i}>
                                 <img src={gif.images.fixed_height.url} />
                             </div>
                         )
@@ -23,15 +23,15 @@ const Body = ({
                         offset < count ?
                             <button
                                 className='loadMore'
-                                onClick={searchGiphy}
+                                onClick={loadMore}
                             >
                                 Load More
                             </button>
                             : null
                     }
                 </div> :
-                isFetching === false ?
-                    <div className='statusMsg'>No results</div>
+                isFetching === false
+                    ? <div className='statusMsg'>No results</div>
                     : null
         }
         {
@@ -46,8 +46,8 @@ Body.propTypes = {
     count: PropTypes.number.isRequired,
     gifs: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    loadMore: PropTypes.func.isRequired,
     offset: PropTypes.number.isRequired,
-    searchGiphy: PropTypes.func.isRequired
 }
 
 export default Body

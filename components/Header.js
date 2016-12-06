@@ -1,17 +1,9 @@
 import React, { PropTypes } from 'react'
 import SearchInput from './SearchInput'
 
-const Header = ({
-    searchGiphy,
-    searchInput,
-    setSearchInput
-}) => (
+const Header = props => (
     <div className='header row'>
-        <SearchInput
-            searchGiphy={searchGiphy}
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
-        />
+        <SearchInput {...props} />
     </div>
 )
 
