@@ -2,6 +2,12 @@ import React, { Component, PropTypes } from 'react'
 
 export default class SearchInput extends Component {
 
+    static propTypes = {
+        fetchGifs: PropTypes.func.isRequired,
+        searchInput: PropTypes.string.isRequired,
+        setSearchInput: PropTypes.func.isRequired
+    }
+
     constructor (props) {
         super(props)
     }
@@ -9,7 +15,7 @@ export default class SearchInput extends Component {
     render () {
 
         const {
-            searchGiphy,
+            fetchGifs,
             searchInput,
             setSearchInput
         } = this.props
@@ -31,7 +37,7 @@ export default class SearchInput extends Component {
                     this.refs.searchInput.blur()
 
                     // Search
-                    searchGiphy(searchInput.trim())
+                    fetchGifs(searchInput.trim())
                 }}
                 placeholder='Search Giphy'
                 ref='searchInput'
@@ -40,10 +46,4 @@ export default class SearchInput extends Component {
             />
         )
     }
-}
-
-SearchInput.propTypes = {
-    searchGiphy: PropTypes.func.isRequired,
-    searchInput: PropTypes.string.isRequired,
-    setSearchInput: PropTypes.func.isRequired
 }

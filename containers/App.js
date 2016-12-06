@@ -1,9 +1,9 @@
 import Body from '../components/Body'
 import Header from '../components/Header'
 import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { fetchGifs, setSearchInput } from '../actions'
-import { RESULT_LIMIT } from '../constants'
+import * as Actions from '../actions'
 
 class App extends Component {
 
@@ -15,71 +15,25 @@ class App extends Component {
 
         const { defaultSearch, dispatch } = this.props
 
-        dispatch(fetchGifs(defaultSearch))
+        dispatch(Actions.fetchGifs(defaultSearch))
     }
 
     render () {
 
-        const {
-            count,
-            dispatch,
-            gifs,
-            isFetching,
-            offset,
-            query,
-            searchInput
-        } = this.props
+        const boundActions = bindActionCreators(Actions, this.props.dispatch)
 
         return (
             <div>
-                <Body
-                    count={count}
-                    gifs={gifs}
-                    isFetching={isFetching}
-                    offset={offset}
-                    searchGiphy={() =>
-                        dispatch(fetchGifs(query, offset + RESULT_LIMIT))
-                    }
-                />
-                <Header
-                    searchGiphy={searchInput =>
-                        dispatch(fetchGifs(searchInput))
-                    }
-                    searchInput={searchInput}
-                    setSearchInput={searchInput =>
-                        dispatch(setSearchInput(searchInput))
-                    }
-                />
+                <Header {...this.props} {...boundActions} />
+                <Body {...this.props} {...boundActions} />
                 <img
-                    className="credits"
-                    src="./images/Poweredby_100px-Black_VertText.png" />
+                    className='credits'
+                    src='./images/Poweredby_100px-Black_VertText.png' />
             </div>
         )
     }
 }
 
-const mapStateToProps = state => {
-
-    const { giphy } = state
-    const {
-        count,
-        defaultSearch,
-        gifs,
-        isFetching,
-        offset,
-        query,
-        searchInput
-    } = giphy
-
-    return {
-        count,
-        defaultSearch,
-        gifs,
-        isFetching,
-        offset,
-        query,
-        searchInput
-    }
-}
+const mapStateToProps = ({ giphy }) => ({...giphy})
 
 export default connect(mapStateToProps)(App)

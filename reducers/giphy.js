@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
     count: 0,
-    defaultSearch: 'silicon valley',
+    defaultSearch: 'react',
     isFetching: false,
     gifs: [],
     offset: 0,

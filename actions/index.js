@@ -5,6 +5,10 @@ import 'whatwg-fetch'
 
 const apiKey = 'dc6zaTOxFJmzC'
 
+/**
+ * SYNC
+ */
+
 const receiveGifs = json => {
 
     const {
@@ -35,22 +39,37 @@ export const setSearchInput = searchInput => ({
     searchInput
 })
 
-export function fetchGifs (query, offset = 0) {
 
-    return dispatch => {
+/**
+ * MIDDEWARE
+ */
 
-        dispatch(requestGifs(query, offset))
+export const loadMore = () => (dispatch, getState) => {
 
-        const qs = querystring.stringify({
-            q: query,
-            api_key: apiKey,
-            limit: RESULT_LIMIT,
-            offset
-        })
+    const { giphy } = getState()
+    const { offset, query } = giphy
 
-        return fetch(`http://api.giphy.com/v1/gifs/search?${qs}`)
-            .then(res => res.json())
-            .then(json => dispatch(receiveGifs(json)))
-            .catch(err => console.error(err))
-    }
+    return dispatch(fetchGifs(query, offset + RESULT_LIMIT))
+}
+
+
+/**
+ * ASYNC
+ */
+
+export const fetchGifs = (query, offset = 0) => dispatch => {
+
+    dispatch(requestGifs(query, offset))
+
+    const qs = querystring.stringify({
+        api_key: apiKey,
+        limit: RESULT_LIMIT,
+        offset,
+        q: query
+    })
+
+    fetch(`http://api.giphy.com/v1/gifs/search?${qs}`)
+        .then(res => res.json())
+        .then(json => dispatch(receiveGifs(json)))
+        .catch(err => console.error(err))
 }
