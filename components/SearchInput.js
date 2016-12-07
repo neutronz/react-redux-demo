@@ -8,6 +8,12 @@ export default class SearchInput extends Component {
         setSearchInput: PropTypes.func.isRequired
     }
 
+    static defaultProps = {
+        fetchGifs: () => {},
+        searchInput: '',
+        setSearchInput: () => {}
+    }
+
     constructor (props) {
         super(props)
     }

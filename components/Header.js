@@ -13,4 +13,10 @@ Header.propTypes = {
     setSearchInput: PropTypes.func.isRequired
 }
 
+Header.defaultProps = {
+    searchGiphy: () => {},
+    searchInput: '',
+    setSearchInput: () => {}
+}
+
 export default Header

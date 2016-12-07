@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { RESULT_LIMIT } from '../constants'
 
 const Body = ({
     count,
@@ -20,12 +21,12 @@ const Body = ({
                     }
                     <div style={{ clear: 'both' }} />
                     {
-                        offset < count ?
+                        offset < count && count > RESULT_LIMIT ?
                             <button
                                 className='loadMore'
                                 onClick={loadMore}
                             >
-                                Load More
+                                more
                             </button>
                             : null
                     }
@@ -47,7 +48,15 @@ Body.propTypes = {
     gifs: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
     loadMore: PropTypes.func.isRequired,
-    offset: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired
+}
+
+Body.defaultProps = {
+    count: 0,
+    gifs: [],
+    isFetching: false,
+    loadMore: () => {},
+    offset: 0
 }
 
 export default Body

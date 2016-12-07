@@ -57,19 +57,26 @@ export const loadMore = () => (dispatch, getState) => {
  * ASYNC
  */
 
-export const fetchGifs = (query, offset = 0) => dispatch => {
+export const fetchGifs = (query, offset = 0) => async function (dispatch) {
 
     dispatch(requestGifs(query, offset))
 
-    const qs = querystring.stringify({
-        api_key: apiKey,
-        limit: RESULT_LIMIT,
-        offset,
-        q: query
-    })
+    try {
 
-    fetch(`http://api.giphy.com/v1/gifs/search?${qs}`)
-        .then(res => res.json())
-        .then(json => dispatch(receiveGifs(json)))
-        .catch(err => console.error(err))
+        const qs = querystring.stringify({
+            api_key: apiKey,
+            limit: RESULT_LIMIT,
+            offset,
+            q: query
+        })
+
+        const gifs = await fetch(`http://api.giphy.com/v1/gifs/search?${qs}`)
+        const json = await gifs.json()
+
+        dispatch(receiveGifs(json))
+
+    } catch (err) {
+
+        console.error(err)
+    }
 }
