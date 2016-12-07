@@ -2,12 +2,12 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
     count: 0,
-    defaultSearch: 'react',
+    defaultSearch: 'javascript',
     isFetching: false,
     gifs: [],
     offset: 0,
     query: '',
-    searchInput: '',
+    searchInput: ''
 }
 
 export default function giphy(state = initialState, action) {
@@ -21,7 +21,7 @@ export default function giphy(state = initialState, action) {
         return Object.assign({}, state, {
             count,
             gifs: offset === 0
-                ? gifs
+                ? [...gifs]
                 : [...state.gifs, ...gifs],
             isFetching: false,
             offset
@@ -34,7 +34,7 @@ export default function giphy(state = initialState, action) {
         return Object.assign({}, state, {
             gifs: offset === 0
                 ? []
-                : state.gifs,
+                : [...state.gifs],
             isFetching: true,
             query
         })
